@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" contant="ie=edge">
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+       
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./styles.css">
+        <title>React Assignment</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <div class="container">
+        <script type="text/babel">
+            class MyForm extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                    username: '',
+                    password: null,
+                    cpassword:null,
+                    errormessage:''
+                    };
+                }
+                mySubmitHandler = (event) => {
+                    event.preventDefault();
+                    const{password,cpassword}=this.state;
+                   
+                    if(password!==cpassword){
+                        alert("passwords dont match");
+                    }
+                    else{
+                    alert("Successfull Registration!!!");
+                    }
+            
+                }
+                myChangeHandler = (event) => {
+                    let nam = event.target.name;
+                    let val = event.target.value;
+                    let err='';
+                    
+                        if ((nam == "password" || nam=="cpassword")) {
+                        if (!Number(val) ) {
+                            err=<strong>Your password must be number </strong>
+                        }
+                        }
+                    
+                        this.setState({errormessage:err})
+                        this.setState({[nam]: val})
+                    /*
+                    event.preventDefault();
+                    const { name, value } = event.target;
+                    let errors = this.state.errors;
+
+                    switch (name) {
+                        case 'username': 
+                        errors.username = 
+                            value.length < 5
+                            ? 'Full Name must be 5 characters long!'
+                            : '';
+                        break;
+                        
+                        case 'password': 
+                        errors.password = 
+                            value.length < 8
+                            ? 'Password must be 8 characters long!'
+                            : '';
+                        break;
+                        case 'cpassword': 
+                        errors.cpassword = 
+                            value.length < 8
+                            ? 'Password must be 8 characters long!'
+                            : '';
+                        break;
+                        default:
+                        break;
+                    }
+
+                    this.setState({errors, [name]: value}, ()=> {
+                        console.log(errors)
+                    })*/
+                    }
+                render() {
+                    return (
+                    <form onSubmit={this.mySubmitHandler}>
+                    
+                    <p>Enter your username  
+                    <input
+                        type='text'
+                        name='username'
+                        
+                        onChange={this.myChangeHandler}
+                    /></p>
+                    <p>Enter the password 
+                    <input
+                        type='password'
+                        name='password'
+                       
+                        onChange={this.myChangeHandler}
+                    /></p>
+                    <p>Confirm the password 
+                        <input
+                        type='password'
+                        name='cpassword'
+                        
+                        onChange={this.myChangeHandler}
+                   
+                        
+                        
+                    />
+                    </p>
+                    {this.state.errormessage}
+                    <br/>
+                    <button>Register</button>
+                    </form>
+                    );
+                }
+                }
+                
+
+            ReactDOM.render(<MyForm />, document.getElementById('root'));
+
+        </script>
+        </div>
+    </body>
+
+
+</html>
